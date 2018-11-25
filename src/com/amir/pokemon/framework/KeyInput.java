@@ -29,10 +29,11 @@ public class KeyInput extends KeyAdapter {
 
             if (tempObject.getId() == ObjectId.Pointer) {
                 if (true||true) {//if menu/turn still in progress
+                    System.out.println("Pos : " + tempObject.getPos());
                     if (key == KeyEvent.VK_DOWN && tempObject.getPos() != 1) {
                         tempObject.setY(tempObject.getY() + 32);
                     }
-                    if (key == KeyEvent.VK_UP) {
+                    if (key == KeyEvent.VK_UP && tempObject.getPos() != -1) {
                         tempObject.setY(tempObject.getY() - 32);
                     }
                     if (key == KeyEvent.VK_ENTER) {

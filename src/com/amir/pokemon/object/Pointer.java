@@ -37,7 +37,7 @@ public class Pointer extends GameObject {
     public void tick(LinkedList<GameObject> object) {
         x += dx;
         y += dy;
-        //Collision(object);
+        Collision(object);
     }
 
     private void Collision(LinkedList<GameObject> object) {
@@ -47,7 +47,15 @@ public class Pointer extends GameObject {
             if (tempObject.getId() == ObjectId.Block) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     pos=1;
-                    System.out.println("touch");
+                }
+                if (getBoundsTop().intersects(tempObject.getBounds())) {
+                    pos=-1;
+                }
+//                if (!getBoundsTop().intersects(tempObject.getBounds()) && !getBounds().intersects(tempObject.getBounds())) {
+//                    pos=0;
+//                }
+                if (getBoundsRight().intersects(tempObject.getBounds())){
+                    dx=0;
                 }
             }
         }
