@@ -59,15 +59,26 @@ public class Pointer extends GameObject {
                     x = tempObject.getX() - width+1;
                     
                 }
+            }else if (tempObject.getId() == ObjectId.Button) {
+                if (getBoundsRight().intersects(tempObject.getBounds())) {
+                    dx = 0;
+                    x= x-10;
+                    handler.switchLevel();
+                }
             }
             
         }
     }
+    
+    
+    
     public void render(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillRect((int) x, (int) y, (int) width, (int) height);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.red);
+
+//        Graphics2D g2d = (Graphics2D) g;
+//        g2d.setColor(Color.red);
+//        
 //        g2d.draw(getBounds());
 //        g2d.draw(getBoundsRight());
 //        g2d.draw(getBoundsLeft());
