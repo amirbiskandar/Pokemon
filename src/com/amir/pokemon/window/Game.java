@@ -7,6 +7,7 @@ package com.amir.pokemon.window;
 
 import com.amir.pokemon.framework.KeyInput;
 import com.amir.pokemon.framework.ObjectId;
+import com.amir.pokemon.object.Button;
 import com.amir.pokemon.object.Block;
 import com.amir.pokemon.object.Pointer;
 import java.awt.Canvas;
@@ -22,12 +23,14 @@ import java.util.Random;
  */
 public class Game extends Canvas implements Runnable {
 
+    static int LEVEL = 1;
+
     //private static final long serialVersionUID = -12352739284726437289L;
     private boolean running = false;
     private Thread thread;
     public static int WIDTH,HEIGHT;
     
-    private BufferedImage level = null;
+    private BufferedImage menu = null;
     
     
     //object handling
@@ -39,14 +42,12 @@ public class Game extends Canvas implements Runnable {
         
         WIDTH = getWidth();
         HEIGHT = getHeight();
-        
-        BufferedImageLoader loader = new BufferedImageLoader();
-        level = loader.loadImage("/level.png");
-        
-        
         handler = new Handler();
         
-        LoadImageLevel(level);
+        BufferedImageLoader loader = new BufferedImageLoader();
+        menu = loader.loadImage("/menu.png");
+        
+        handler.LoadImageLevel(menu);
         
         this.addKeyListener(new KeyInput(handler));
     }
@@ -127,33 +128,11 @@ public class Game extends Canvas implements Runnable {
 
     }
 
-    private void LoadImageLevel(BufferedImage image){
-        int w = image.getWidth();
-        int h = image.getHeight();
-        
-        for (int xx = 0; xx < h; xx++) {
-            for (int yy = 0; yy < w; yy++) {
-                int pixel = image.getRGB(xx, yy);
-                int red = (pixel >> 16) & 0xFF;
-                int green = (pixel >> 8) & 0xFF;
-                int blue = (pixel) & 0xFF;
-                //System.out.println("Red : "+red+"\nGreen : "+green+"\nBlue : "+blue);
-                
-                if (red == 0 && green == 0 && blue == 0) {
-                    handler.addObject(new Block(xx*16,yy*16,ObjectId.Block,16));
-                }
-                if (red == 0 && green == 0 && blue == 255) {
-                    handler.addObject(new Pointer(xx*16,yy*16,handler,ObjectId.Pointer));
-                }
-            }
-            
-        }
-        
-    }
+    
     
     
     public static void main(String[] args) {
-        new Window(800, 576, "pokemon", new Game());
+        new Window(928, 576, "pokemon", new Game());
     }
 
 }

@@ -21,7 +21,7 @@ import java.util.LinkedList;
 public class Pointer extends GameObject {
 
     private float width = 48, height = 16;
-    private int pos = 0;
+    private int pos = -1;
 
     private Handler handler;
 
@@ -46,51 +46,61 @@ public class Pointer extends GameObject {
             GameObject tempObject = handler.object.get(i);
             if (tempObject.getId() == ObjectId.Block) {
                 if (getBounds().intersects(tempObject.getBounds())) {
-                    pos=1;
+                    pos = 1;
+                }else if (getBoundsTop().intersects(tempObject.getBounds())) {
+                    pos = -1;
                 }
-                if (getBoundsTop().intersects(tempObject.getBounds())) {
-                    pos=-1;
-                }
-//                if (!getBoundsTop().intersects(tempObject.getBounds()) && !getBounds().intersects(tempObject.getBounds())) {
-//                    pos=0;
+                
+//                if (((!getBounds().intersects(tempObject.getBounds())) && (!getBoundsTop().intersects(tempObject.getBounds())))) {
+//                    pos = 0;
 //                }
-                if (getBoundsRight().intersects(tempObject.getBounds())){
-                    dx=0;
+                if (getBoundsRight().intersects(tempObject.getBounds())) {
+                    dx = 0;
+                    x = tempObject.getX() - width+1;
+                    
+                }
+            }else if (tempObject.getId() == ObjectId.Button) {
+                if (getBoundsRight().intersects(tempObject.getBounds())) {
+                    dx = 0;
+                    x= x-10;
+                    handler.switchLevel();
                 }
             }
+            
         }
-
     }
-
+    
+    
+    
     public void render(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillRect((int) x, (int) y, (int) width, (int) height);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(Color.red);
-        g2d.draw(getBounds());
-        g2d.draw(getBoundsRight());
-        g2d.draw(getBoundsLeft());
-        g2d.draw(getBoundsTop());
+
+//        Graphics2D g2d = (Graphics2D) g;
+//        g2d.setColor(Color.red);
+//        
+//        g2d.draw(getBounds());
+//        g2d.draw(getBoundsRight());
+//        g2d.draw(getBoundsLeft());
+//        g2d.draw(getBoundsTop());
 
     }
 
     @Override
     public Rectangle getBounds() { //bottom
-        return new Rectangle((int) x+2, (int) (y+2+(height/2)), (int) width-4, (int) height/2);
+        return new Rectangle((int) x + 2, (int) (y + 2 + (height / 2)), (int) width - 4, (int) height / 2);
     }
 
     public Rectangle getBoundsRight() {
-        return new Rectangle((int) (x-2+(width)), (int) y+2, (int) 4, (int) height-4);
+        return new Rectangle((int) (x - 2 + (width)), (int) y + 2, (int) 4, (int) height - 4);
     }
-    
+
     public Rectangle getBoundsLeft() {
-        return new Rectangle((int) x-2, (int) y+2, (int) 4, (int) height-4);
+        return new Rectangle((int) x - 2, (int) y + 2, (int) 4, (int) height - 4);
     }
-    
+
     public Rectangle getBoundsTop() {
-        return new Rectangle((int) x+2, (int) y-2, (int) width-4, (int) height/2);
+        return new Rectangle((int) x + 2, (int) y - 2, (int) width - 4, (int) height / 2);
     }
-    
-    
 
 }

@@ -13,5 +13,7 @@ public enum ObjectId {
     Pointer(),
     Block(),
     iBlock(),
-    Button();
+    Button(),
+    SpeedAcc(),
+    SpeedFlag();
 }

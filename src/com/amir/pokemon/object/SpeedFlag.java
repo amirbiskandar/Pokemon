@@ -16,9 +16,9 @@ import java.util.LinkedList;
  *
  * @author amir
  */
-public class Button extends GameObject {
+public class SpeedFlag extends GameObject {
     private int dim;
-    public Button(float x, float y, ObjectId id,int dim) {
+    public SpeedFlag(float x, float y, ObjectId id,int dim) {
         super(x,y,id);
         this.dim = dim;
     }
@@ -27,19 +27,16 @@ public class Button extends GameObject {
      }
 
     public void render(Graphics g) {
-        System.out.println(id);
-        g.setColor(Color.green);
+        g.setColor(new Color(100,0,100));
         g.fillRect((int)x, (int)y, dim, dim);
-        g.setColor(Color.white);
-        g.drawString("Hello", (int)x+32, (int)y+14);
     }
 
     
     public Rectangle getBounds() {
-        return new Rectangle((int) (x+dim*5), (int) y, (int) dim, (int) dim);
+        return new Rectangle((int) x, (int) y, (int) dim, (int) dim);
     }
 
-    @Override
+
     public int getPos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
